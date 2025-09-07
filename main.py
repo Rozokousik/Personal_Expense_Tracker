@@ -38,12 +38,13 @@ with st.sidebar:
                 st.success("Registered Successfully! Please Login")
             else:
                 st.error("Username already taken")
-    
+
     elif choice == "Logout":
         if st.button("Logout", type="primary"):
             st.session_state.logged_in = False
             st.session_state.username = None
             st.success("Logged out Successfully")
+
 
 if st.session_state.logged_in:
     action = st.selectbox("Action",["Set budget", "View Budgets", "Add Expenses", "View Expenses", "Delete Expenses","Select"],index=5)
