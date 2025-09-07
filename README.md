@@ -38,6 +38,8 @@ personal-expenses-tracker/
 │── db.py              # Database operations (MySQL queries)
 │── requirements.txt   # Project dependencies
 │── README.md          # Documentation
+│── .streamlit/
+    │── config.toml  
 
 ⚡ Installation & Setup
 
@@ -100,3 +102,4 @@ streamlit run app.py
 Harish J – Aspiring Data Analyst | Passionate about Data Analytics
 
 🔗 LinkedIn - www.linkedin.com/in/harish-j-056022277  | GitHub - https://github.com/Hari-710
+
