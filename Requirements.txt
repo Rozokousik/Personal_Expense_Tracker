@@ -2,4 +2,4 @@
 mysql-connector-python
 bcrypt
 pandas
-matplotlib.pyplot
+matplotlib
