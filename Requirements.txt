@@ -1,5 +1,5 @@
-﻿streamlit
-mysql-connector-python
-bcrypt
-pandas
-matplotlib
+streamlit==1.26.0
+pandas==2.1.1
+matplotlib==3.8.1
+mysql-connector-python==8.1.1
+bcrypt==4.1.0
