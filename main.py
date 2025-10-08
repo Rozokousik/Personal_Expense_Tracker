@@ -7,6 +7,7 @@ import time
 import db
 
 ##hkrhgklj;rjf
+# Bug addd
 
 st.set_page_config("Personal Expenses Tracker", layout="wide", page_icon="https://img.icons8.com/?size=100&id=eYaVJ9Nbqqbw&format=png&color=000000")
 
