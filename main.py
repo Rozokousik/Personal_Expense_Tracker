@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import streamlit as st
 import matplotlib.pyplot as plt
 from decimal import Decimal
@@ -38,12 +39,13 @@ with st.sidebar:
                 st.success("Registered Successfully! Please Login")
             else:
                 st.error("Username already taken")
-    
+
     elif choice == "Logout":
         if st.button("Logout", type="primary"):
             st.session_state.logged_in = False
             st.session_state.username = None
             st.success("Logged out Successfully")
+
 
 if st.session_state.logged_in:
     action = st.selectbox("Action",["Set budget", "View Budgets", "Add Expenses", "View Expenses", "Delete Expenses","Select"],index=5)
@@ -202,23 +204,51 @@ if st.session_state.logged_in:
                         eu = db.fetch_expenses_user(st.session_state.username)
                         if eu:
                             df2 = pd.DataFrame(eu)
-                            df2['month_year1'] = pd.to_datetime(df2['date']).dt.to_period('M').astype(str)
 
-                            category_month = df2.groupby(['month_year1','category'])['amount'].sum().unstack().fillna(0)
+                            df2['date'] = pd.to_datetime(df2['date'], errors="coerce")
+                            df2['amount'] = pd.to_numeric(df2['amount'], errors='coerce').fillna(0)
 
-                            if len(category_month) > 1:
-                                g = category_month.pct_change()* 100
+                            df2['month_year1'] = df2['date'].dt.to_period('M').astype(str)
+                            category_month = (
+                                df2.groupby(['month_year1','category'])['amount']
+                                .sum()
+                                .unstack(fill_value=0)
+                                .sort_index()
+                            )
 
-                                def format_growth(val):
+                        if len(category_month) > 1:
+                            prev = category_month.shift(1)
+                            g = category_month.pct_change()*100
+
+                            g = g.replace([np.inf, -np.inf], np.nan)
+
+                            def format_growth(val, prev_val, curr_val):
+                                if pd.isna(val):
+                                    if prev_val == 0 and curr_val > 0:
+                                        return "🟢 New"
+                                    else:
+                                        return "0.00%"
+                                try:
                                     if val > 0:
                                         return f"🟢 {val:.2f}% ↑"
                                     elif val < 0:
                                         return f"🔴 {val:.2f}% ↓"
                                     else:
                                         return f"{val:.2f}%"
-
-                                s_g = g.applymap(format_growth)
-                                st.dataframe(s_g)
+                                except Exception:
+                                    return "-"
+                                
+                            s_g = g.copy().astype(object)
+                            for r in g.index:
+                                for c in g.columns:
+                                    s_g.loc[r, c] = format_growth(
+                                        g.loc[r, c],
+                                        prev.loc[r, c],
+                                        category_month.loc[r, c]
+                                    )
+                            st.dataframe(s_g)
+                        else:
+                            st.info("Not enough months of data to calculate growth.")
                         
                     st.sidebar.subheader("Click below to download report..")
                     with st.sidebar:
