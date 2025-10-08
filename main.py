@@ -80,7 +80,7 @@ if st.session_state.logged_in:
     elif action == "Add Expenses":
         st.subheader("Adding Expenses..")
         date = st.date_input("Date")
-        category = st.selectbox("Category",["Food","Travel","Bills","Entertainment","Medical","Repair Bills"])
+        category = st.selectbox("Category",["Food","Travel","Bills","Entertainment","Medical","Groceries","Savings","Personal care"])
         amount = st.number_input("Amount")
         payment_mode = st.selectbox("Payment_Type",["Cash","Card","UPI"])
         year_month = date.strftime("%Y-%m")
