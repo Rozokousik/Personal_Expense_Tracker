@@ -6,8 +6,6 @@ from decimal import Decimal
 import time
 import db
 
-###kjhfgiodjkgjo
-
 st.set_page_config("Personal Expenses Tracker", layout="wide", page_icon="https://img.icons8.com/?size=100&id=eYaVJ9Nbqqbw&format=png&color=000000")
 
 if "logged_in" not in st.session_state:
