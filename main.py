@@ -1,13 +1,14 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import matplotlib.pyplot as plt
 from decimal import Decimal
 import time
 import db
 
-##hkrhgklj;rjf
-# Bug addd
 
 st.set_page_config("Personal Expenses Tracker", layout="wide", page_icon="https://img.icons8.com/?size=100&id=eYaVJ9Nbqqbw&format=png&color=000000")
 
@@ -48,7 +49,6 @@ with st.sidebar:
             st.session_state.logged_in = False
             st.session_state.username = None
             st.success("Logged out Successfully")
-
 
 if st.session_state.logged_in:
     action = st.selectbox("Action",["Set budget", "View Budgets", "Add Expenses", "View Expenses", "Delete Expenses","Select"],index=5)
@@ -263,11 +263,12 @@ if st.session_state.logged_in:
                             mime="text/csv",
                             type="primary"
                         )
+
                 else:
                     st.info(f"No Expenses Yet.. Add Expenses for {selected_month}..")
             else:
                 st.warning("Check the input format")
-    
+
     elif action == "Delete Expenses":
         expense_ids = db.fetch_expense_id(st.session_state.username)
         selected_id = st.selectbox("Choose Expense ID to delete:", expense_ids)
@@ -278,4 +279,6 @@ if st.session_state.logged_in:
                     time.sleep(2)
                     st.rerun()
             else:
-                st.warning("Select ID to delete")                
+                st.warning("Select ID to delete")  
+
+              
