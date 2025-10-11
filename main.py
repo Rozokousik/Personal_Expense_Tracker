@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import matplotlib.pyplot as plt
 from decimal import Decimal
 import time
