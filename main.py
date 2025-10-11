@@ -22,6 +22,7 @@ st.text("Managing your money is the first step towards financial freedom. This a
 
 with st.sidebar:
     choice = st.sidebar.selectbox("Registrations:", ["Login", "Register", "Logout"])
+    
     if choice == "Login":
         username = st.text_input("Username")
         password = st.text_input("Password",type="password")
