@@ -99,7 +99,8 @@ streamlit run app.py
 
 👨‍💻 Author
 
-Harish J – Aspiring Data Analyst | Passionate about Data Analytics
+Kousik K Y – Aspiring Data Analyst | Passionate about Data Analytics
 
-🔗 LinkedIn - www.linkedin.com/in/harish-j-056022277  | GitHub - https://github.com/Hari-710
+🔗 LinkedIn - https://www.linkedin.com/in/kousik-k-y-4572b0256/  | GitHub - https://github.com/Rozokousik
+
 
